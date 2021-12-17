@@ -11,6 +11,7 @@ export default () =>
          output: {
             file: 'public/App1.js',
             format: 'es',
+            sourcemap: true
          },
          plugins: [
             svelte({ include: 'src/app1/**/*.svelte' }),
@@ -23,6 +24,7 @@ export default () =>
          output: {
             file: 'public/App2.js',
             format: 'es',
+            sourcemap: true
          },
          plugins: [
             svelte({ include: 'src/app2/**/*.svelte' }),
