@@ -1,5 +1,6 @@
-import resolve             from '@rollup/plugin-node-resolve'; // This resolves NPM modules from node_modules.
-import svelte              from 'rollup-plugin-svelte';
+import css     from 'rollup-plugin-css-only';
+import resolve from '@rollup/plugin-node-resolve';
+import svelte  from 'rollup-plugin-svelte';
 
 // Generate two separate Svelte app bundles.
 export default () =>
@@ -13,6 +14,7 @@ export default () =>
          },
          plugins: [
             svelte({ include: 'src/app1/**/*.svelte' }),
+            css({ output: 'app1.css'}),
             resolve({ browser: true, dedupe: ['svelte'] }),
          ]
       },
@@ -24,6 +26,7 @@ export default () =>
          },
          plugins: [
             svelte({ include: 'src/app2/**/*.svelte' }),
+            css({ output: 'app2.css'}),
             resolve({ browser: true, dedupe: ['svelte'] }),
          ]
       }

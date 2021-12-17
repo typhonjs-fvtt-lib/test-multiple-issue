@@ -8,3 +8,9 @@
   on:introend={() => introDone = ' - intro transition ended'}>
     App2 paragraph fade (5000ms){introDone}
 </p>
+
+<style>
+    p {
+        color: lightgray
+    }
+</style>

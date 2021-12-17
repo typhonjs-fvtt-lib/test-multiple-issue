@@ -89,6 +89,12 @@ function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
 }
+function attr(node, attribute, value) {
+    if (value == null)
+        node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+        node.setAttribute(attribute, value);
+}
 function children(element) {
     return Array.from(element.childNodes);
 }
@@ -486,6 +492,7 @@ function create_fragment(ctx) {
 			p = element("p");
 			t0 = text("App1 paragraph fade (2000ms)");
 			t1 = text(/*introDone*/ ctx[0]);
+			attr(p, "class", "svelte-11avl4p");
 		},
 		m(target, anchor) {
 			insert(target, p, anchor);
