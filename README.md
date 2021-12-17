@@ -1,17 +1,18 @@
-# test-multiple
-Problem: When loading multiple separate compiled [Svelte](https://svelte.dev/) apps on the same page in the browser 
+# test-multiple-issue
+Problem: When loading multiple separately compiled [Svelte](https://svelte.dev/) apps on the same page in the browser 
 there is a conflict between the bundled Svelte internal runtime implementations that is most evident in transitions. If 
 both independent Svelte apps transition elements at the same time the first component to finish will affect the second 
 ongoing Svelte app / component visually interfering with the second app / component transition. This occurs even though
-both compiled Svelte apps are completely independent and have no overlapping components. Alas, top-level ES Module 
-separation of the Svelte app / bundles does not prevent side effects.
+both compiled Svelte apps are completely independent and have no overlapping components. There may be other conflicting 
+areas besides transitions as well that are not known to me at this time. Alas, top-level ES Module separation of the 
+Svelte app / bundles does not prevent side effects.
 
 Test case: This repo demonstrates the phenomenon with a very minimal set of Svelte apps / basic component that are
-independently compiled and both mounted in `public/index.html`. Each independent app appends a `<p>` tag in 
+independently compiled and both mounted in `public/index.html`. Each independent Svelte app appends a `<p>` tag in 
 `document.body` that has a fade transition. The first app has a duration of two seconds while the other app has a 
-duration of five seconds. When the first app transition finishes at two seconds it affects the other app seemingly 
-canceling the five second transition. A further update is posted using the `on:introend` event binding to show that 
-internal timing aspects are not seemingly shared.
+duration of five seconds. When the first app transition finishes at two seconds it affects the other app visually 
+interfering with the separate five second transition. A further update is posted using the `on:introend` event
+binding to show that internal timing aspects are not seemingly shared.
 
 Snapshot of this demo:
 
@@ -44,9 +45,9 @@ Potential fix: Create a shared runtime. It is possible to create a `library modu
 exposes a shared Svelte runtime that multiple FVTT packages can link against. I have already completed an 
 implementation fully proving that this is possible with 
 [custom Rollup plugins](https://github.com/typhonjs-fvtt-lib/typhonjs/tree/main/.rollup) for bundling the shared 
-library package and another plugin used when linking a package against the shared runtime. However, I plan to 
-release the component library with both the option for 3rd party developers to accept this dependency or independently 
-bundle the library and Svelte separately.
+library package and another plugin [used to link a FVTT package](https://github.com/typhonjs-fvtt-demo/template-svelte-esm/blob/main/rollup.config.mjs#L63) 
+against the shared runtime. However, I plan to release the component library with both the option for 3rd party 
+developers to accept this dependency or independently bundle the library and Svelte separately.
 
 Drawbacks / downside to a shared runtime:
 - Fragile to changes in Svelte versions. Since future conflicting Svelte versions are not known in advance it is 
