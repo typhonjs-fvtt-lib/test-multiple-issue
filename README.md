@@ -55,9 +55,11 @@ necessary to set a strict peer dependency version for Svelte during development 
 runtime.
 
 
-- As the library module releases new versions duplicates of the entire shared runtime need to be stored in perpetuity. 
-This is very inconvenient during initial build out of the expanded component library and extra resources that eventually
-will be added over the next 3-6 months. IE my plan was to start versioning the shared runtime when it hits
+- As the library module releases new versions duplicates of the entire shared runtime need to be stored in perpetuity as
+while Foundry VTT has a package manager it is not robust like NPM where multiple versions of the same package can be 
+installed. Versioning in the shared library will require storing all versions in separate folders as time marches 
+onward. This is very inconvenient during initial build out of the expanded component library and extra resources that 
+eventually will be added over the next 3-6 months. IE my plan was to start versioning the shared runtime when it hits
 `1.0.0` and not out of the gate while more development occurs. I plan to include Svelte Cubed / Three.js and a PixiJS 
 Svelte library as well; Foundry uses PixiJS for the main game canvas.
 
@@ -65,7 +67,7 @@ Svelte library as well; Foundry uses PixiJS for the main game canvas.
 - Not everyone may be interested in using or aware of the shared runtime. There are thousands of 3rd party developers
 making packages for Foundry VTT. All it takes is anyone else distributing a FVTT package not using the shared runtime to 
 potentially foul things up. There already are a handful of Svelte powered FVTT packages in the wild on the FVTT 
-platform. 
+platform.
 
 For prior discussion of creating shared Svelte runtimes see
 [svelte/issues/3671](https://github.com/sveltejs/svelte/issues/3671).
@@ -77,6 +79,6 @@ runtime. The 250ms transition does not end the two second transition of the app 
 ![test-multiple-foundry](./images/test-multiple-shared-runtime.gif)
 
 Resolution: Well, it looks like I'm going to get very familiar with the Svelte internals over the next X weeks. This is
-a major showstopper for utilizing Svelte on a shared / large platform like Foundry VTT. I can use whatever guidance and
+a major showstopper for utilizing Svelte on a large platform like Foundry VTT. I can use whatever guidance and
 help in debugging and providing a significant contribution to Svelte making it possible to have multiple independent
 Svelte apps running on a single browser page. You can reach me on Discord at `MLeahy#4299`.
