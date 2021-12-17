@@ -2,12 +2,12 @@
 Problem: When loading multiple separate compiled [Svelte](https://svelte.dev/) apps on the same page in the browser 
 there is a conflict between the bundled Svelte internal runtime implementations that is most evident in transitions. If 
 both independent Svelte apps transition elements at the same time the first component to finish will affect the second 
-ongoing Svelte app / component cancelling the second app / component transition. This occurs even though both compiled 
-Svelte apps are completely independent and have no overlapping components. Alas, top-level ES Module separation of 
-the Svelte app / bundles does not prevent side effects.
+ongoing Svelte app / component visually interfering with the second app / component transition. This occurs even though
+both compiled Svelte apps are completely independent and have no overlapping components. Alas, top-level ES Module 
+separation of the Svelte app / bundles does not prevent side effects.
 
 Test case: This repo demonstrates the phenomenon with a very minimal set of Svelte apps / basic component that are
-independently compiled and both mounted in `public/index.html`. Each independent app loads appends a `<p>` tag in 
+independently compiled and both mounted in `public/index.html`. Each independent app appends a `<p>` tag in 
 `document.body` that has a fade transition. The first app has a duration of two seconds while the other app has a 
 duration of five seconds. When the first app transition finishes at two seconds it affects the other app seemingly 
 canceling the five second transition. A further update is posted using the `on:introend` event binding to show that 
@@ -71,7 +71,7 @@ For prior discussion of creating shared Svelte runtimes see
 
 Proof of concept that the shared runtime works. Please see the picture below showing the same two FVTT packages linked
 against the shared runtime. These are the same two FVTT packages as the above example except linked to the shared 
-runtime. The 250ms transition does not end the 2 second transition of the app on the right. 
+runtime. The 250ms transition does not end the two second transition of the app on the right. 
 
 ![test-multiple-foundry](./images/test-multiple-shared-runtime.gif)
 
