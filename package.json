@@ -1,0 +1,15 @@
+{
+  "name": "test-multiple",
+  "description": "Tests multiple compiled Svelte apps on same page for transition conflict",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^13.1.1",
+    "rollup": "^2.61.1",
+    "rollup-plugin-svelte": "^7.1.0",
+    "svelte": "^3.44.3"
+  },
+  "scripts": {
+    "build": "rollup -c"
+  }
+}
