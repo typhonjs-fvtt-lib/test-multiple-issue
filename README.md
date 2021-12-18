@@ -1,4 +1,16 @@
 # test-multiple-issue
+Update!: I have found the issue regarding this problem and the code change is relatively simple. I'm waiting to hear
+from the Svelte maintainers regarding how to proceed. In short the keys used for ExtendedDoc defined in 
+[./src/runtime/internal/style_manager.ts](https://github.com/sveltejs/svelte/blob/master/src/runtime/internal/style_manager.ts#L4-L7)
+need to be unique. This requires appending a UUID or other randomly generated value to the end of `__svelte_stylesheet`
+and `__svelte_rules` so that one Svelte runtime doesn't clobber the styles being tracked by another Svelte runtime 
+on the same browser page. This change is of minimal impact. No new tests likely need to be written. IMHO this is a 
+valuable change. 
+ 
+You can check the issue filed on the Svelte repo [for more details](https://github.com/sveltejs/svelte/issues/7026).
+
+-------
+
 Problem: When loading multiple separately compiled [Svelte](https://svelte.dev/) apps on the same page in the browser 
 there is a conflict between the bundled Svelte internal runtime implementations that is most evident in transitions. If 
 both independent Svelte apps transition elements at the same time the first component to finish will affect the second 
